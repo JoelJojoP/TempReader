@@ -1,6 +1,7 @@
 # TempReader
 
-![v1.0](https://img.shields.io/badge/Version-1.0-green)
+![v1.0.0](https://img.shields.io/badge/Version-1.0.0-green)
+![Library CI](https://github.com/JoelJojoP/TempReader/workflows/Arduino%20Library%20CI/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/JoelJojoP/TempReader?color=blue&label=Issues&style=flat)](https://github.com/JoelJojoP/TempReader/issues)
 
 ## Overview:
