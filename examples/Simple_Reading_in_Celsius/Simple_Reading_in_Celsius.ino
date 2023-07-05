@@ -16,10 +16,12 @@ void setup() {
 
 void loop() {
   // Read the temperature value in degree celsius
-  int temp = t.ReadTemp();
+  int temp = t.ReadTempinC();
 
   // Display the value in the serial monitor
-  Serial.println(temp);
+  Serial.print("Chip temperature is ");
+  Serial.print(temp);
+  Serial.println(" degrees Celsius");
 
   delay(500);
 }

@@ -7,4 +7,6 @@ TempReader	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-ReadTemp	KEYWORD2
+
+ReadTempinC KEYWORD2
+ReadTempinF KEYWORD2

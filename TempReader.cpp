@@ -13,7 +13,7 @@
 #include "TempReader.h"
 
 // Function to read the temperature sensor
-TempReader::ReadTemp()
+TempReader::ReadTempinC()
 {
   // Store register values
   uint8_t oldADCSRA = ADCSRA;
@@ -35,8 +35,8 @@ TempReader::ReadTemp()
   while (ADCSRA & (1 << ADSC));
 
   // Read the temperature
-  int temp = ADCW;
-  temp = int((temp - 324.31 ) / 1.22);
+  int tempRaw = ADCW;
+  int tempinC = int((tempRaw - 324.31 ) / 1.22);
 
   // Restore old register values
   ADCSRA = oldADCSRA;
@@ -44,5 +44,16 @@ TempReader::ReadTemp()
   ACSR = oldACSR;
 
   // Return the temperature value
-  return temp;
+  return tempinC;
+}
+
+TempReader::ReadTempinF()
+{
+  // Use ReadTempinC() to get value in degree celsius
+  int tempinC = ReadTempinC();
+
+  // Convert degree celsius to fahrenheit
+  int tempinF = int((tempinC * 1.8) + 32);
+
+  return tempinF;
 }

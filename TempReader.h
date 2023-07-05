@@ -16,7 +16,8 @@
 class TempReader
 {
 public:
-  int ReadTemp();
+  int ReadTempinC();
+  int ReadTempinF();
 };
 
 #endif
