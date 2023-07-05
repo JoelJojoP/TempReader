@@ -12,7 +12,6 @@
 
 #include <avr/io.h>
 #include <stdbool.h>
-#include <avr/interrupt.h>
 
 class TempReader
 {

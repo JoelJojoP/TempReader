@@ -10,13 +10,11 @@
 // Importing required libraries
 #include <avr/io.h>
 #include <stdbool.h>
-#include <avr/interrupt.h>
 #include "TempReader.h"
 
 // Function to read the temperature sensor
 TempReader::ReadTemp()
 {
-
   // Store register values
   uint8_t oldADCSRA = ADCSRA;
   uint8_t oldADCSRB = ADCSRB;
