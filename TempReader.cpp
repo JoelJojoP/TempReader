@@ -18,16 +18,15 @@ TempReader::ReadTemp()
 {
 
   // Store register values
-  uint8_t oldADMUX = ADMUX;
   uint8_t oldADCSRA = ADCSRA;
   uint8_t oldADCSRB = ADCSRB;
   uint8_t oldACSR = ACSR;
 
   // Configure ADC for reading temperature sensor
-  ADMUX |= (1 << REFS0) | (1 << ADLAR) | (1 << REFS1) | (1 << MUX3);
-  ADMUX &= ~((1 << MUX2) | (1 << MUX1) | (1 << MUX0));
-  ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1);
-  ADCSRA &= ~((1 << ADSC) | (1 << ADATE) | (1 << ADIF) | (1 << ADIE));
+  ADMUX |= (1 << REFS0) | (1 << REFS1) | (1 << MUX3);
+  ADMUX &= ~((1 << MUX2) | (1 << MUX1) | (1 << MUX0) | (1 << ADLAR));
+  ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADIF) | (1 << ADPS0);
+  ADCSRA &= ~((1 << ADATE) | (1 << ADIE));
   ADCSRB &= ~((1 << ACME) | (1 << ADTS2) | (1 << ADTS1) | (1 << ADTS0));
   ACSR |= (1 << ACD);
 
@@ -35,20 +34,17 @@ TempReader::ReadTemp()
   ADCSRA |= (1 << ADSC);
 
   // Wait for conversion to complete
-  uint8_t status = ADCSRA & (1 << ADSC);
-  while (!status)
-  {
-    status = ADCSRA & (1 << ADSC);
-  }
+  while (ADCSRA & (1 << ADSC));
 
   // Read the temperature
-  int temp = (ADCL >> 6) | (ADCH << 2);
-  temp = int(33 + ((temp - 362) / 1.074));
-  return temp;
+  int temp = ADCW;
+  temp = int((temp - 324.31 ) / 1.22);
 
   // Restore old register values
-  ADMUX = oldADMUX;
   ADCSRA = oldADCSRA;
   ADCSRB = oldADCSRB;
   ACSR = oldACSR;
+
+  // Return the temperature value
+  return temp;
 }
